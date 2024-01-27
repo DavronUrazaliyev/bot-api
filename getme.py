@@ -1,9 +1,17 @@
-from settings import TOKEN
 import requests
-from pprint import pprint
+from settings import url
 
-url = f'https://api.telegram.org/bot{TOKEN}/getMe'
 
-response = requests.get(url)
-if response.status_code == 200:
-    pprint(response.json())
+def getMe(url: str) -> dict:
+    endpoint = '/getMe'
+    url += endpoint
+    
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()  
+    
+    return response.status_code
+
+
+result = getMe(url)
+print(result)
